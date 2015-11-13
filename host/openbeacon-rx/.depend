@@ -1,0 +1,8 @@
+bmMapHandleToItem.o: src/bmMapHandleToItem.cpp src/bmMapHandleToItem.h \
+ src/crc32.h
+main.o: src/main.cpp src/crypto.h \
+ ../../firmware/nRF51/tag-proximity/inc/openbeacon-proto.h \
+ src/bmMapHandleToItem.h src/../BeaconPositions.h
+crypto.o: src/crypto.cpp src/crypto.h \
+ ../../firmware/nRF51/tag-proximity/inc/openbeacon-proto.h
+sinkserver.o: src/sinkserver.cpp
