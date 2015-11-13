@@ -40,6 +40,9 @@
 //{
 */
 
+static int quiet_flag=1;		/* Don't decode the packet */
+
+
 /* Defines */
 
 #define MAXLINE 255			/* Max line length for input files */
@@ -226,6 +229,8 @@ err_print (int errnoflag, const char *fmt, va_list ap) {
    char buf[MAXLINE];
 
    errno_save=errno;
+
+if (quiet_flag==0) return;
 
    vsnprintf(buf, MAXLINE, fmt, ap);
    n=strlen(buf);
@@ -797,7 +802,6 @@ static unsigned timeout = DEFAULT_TIMEOUT; /* Per-host timeout */
 static float backoff_factor = DEFAULT_BACKOFF_FACTOR;	/* Backoff factor */
 static int snaplen = SNAPLEN;		/* Pcap snap length */
 static char *if_name=NULL;		/* Interface name, e.g. "eth0" */
-static int quiet_flag=1;		/* Don't decode the packet */
 static int ignore_dups=0;		/* Don't display duplicate packets */
 static uint32_t arp_spa;		/* Source IP address */
 static int arp_spa_flag=0;		/* Source IP address specified */
@@ -2598,7 +2602,7 @@ typedef struct _tagcheckdatasink_data
     char buffer[37];
 } CheckDataSink_Data;
 
-#define g_nthreads 50
+#define g_nthreads 20
 CheckDataSink_Data  *g_checkdatasink_data;
 
 void set_wait_time(const int sec, const int micro_sec)
@@ -2727,7 +2731,7 @@ int getactivedatasink(char *host)
 {
     int i, k, ithread, ret=0;
 	plain_flag = 1;
-	quiet_flag = 0;
+	quiet_flag = 1;
 
     g_checkdatasink_data = (CheckDataSink_Data*)malloc(g_nthreads*sizeof(CheckDataSink_Data));
 
